@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DiaryService {
     private final DiaryEntryDao diaryEntryDao;
@@ -17,5 +19,9 @@ public class DiaryService {
 
     public void saveDiaryEntry(DiaryEntry diaryEntry) {
         diaryEntryDao.upsert(diaryEntry);
+    }
+
+    public List<DiaryEntry> fetchALlDiaryEntries() {
+        return diaryEntryDao.fetchAll();
     }
 }

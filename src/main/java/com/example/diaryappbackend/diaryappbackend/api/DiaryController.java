@@ -3,10 +3,9 @@ package com.example.diaryappbackend.diaryappbackend.api;
 import com.example.diaryappbackend.diaryappbackend.model.DiaryEntry;
 import com.example.diaryappbackend.diaryappbackend.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("api/v1/diary")
 @RestController
@@ -21,5 +20,10 @@ public class DiaryController {
     @PostMapping
     public void saveDiaryEntry(@RequestBody DiaryEntry diaryEntry) {
         diaryService.saveDiaryEntry(diaryEntry);
+    }
+
+    @GetMapping
+    public List<DiaryEntry> fetchAllDiaryEntries() {
+        return diaryService.fetchALlDiaryEntries();
     }
 }
