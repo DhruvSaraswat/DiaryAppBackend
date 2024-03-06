@@ -2,8 +2,6 @@ package com.example.diaryappbackend.diaryappbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Date;
-
 public class DiaryEntry {
     private final String title;
     private final String story;
