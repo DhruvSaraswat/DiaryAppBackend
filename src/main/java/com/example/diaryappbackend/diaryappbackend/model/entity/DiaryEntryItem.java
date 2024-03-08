@@ -1,7 +1,12 @@
 package com.example.diaryappbackend.diaryappbackend.model.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("DiaryEntries")
 public class DiaryEntryItem {
 
+    @Id
     private final String userId;
     private final String title;
     private final String story;
@@ -14,5 +19,25 @@ public class DiaryEntryItem {
         this.story = story;
         this.createdAtTimestamp = createdAtTimestamp;
         this.lastEditedAtTimestamp = lastEditedAtTimestamp;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public long getCreatedAtTimestamp() {
+        return createdAtTimestamp;
+    }
+
+    public long getLastEditedAtTimestamp() {
+        return lastEditedAtTimestamp;
     }
 }
