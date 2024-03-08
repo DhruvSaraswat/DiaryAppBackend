@@ -1,21 +1,20 @@
 package com.example.diaryappbackend.diaryappbackend.service;
 
-import com.example.diaryappbackend.diaryappbackend.dao.DiaryEntryDao;
+import com.example.diaryappbackend.diaryappbackend.dao.DiaryRepository;
 import com.example.diaryappbackend.diaryappbackend.model.DiaryEntry;
 import com.example.diaryappbackend.diaryappbackend.model.entity.DiaryEntryItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class DiaryService {
-    private final DiaryEntryDao diaryEntryDao;
+    private final DiaryRepository repository;
 
     @Autowired
-    public DiaryService(DiaryEntryDao diaryEntryDao) {
-        this.diaryEntryDao = diaryEntryDao;
+    public DiaryService(DiaryRepository repository) {
+        this.repository = repository;
     }
 
     public void saveDiaryEntry(DiaryEntry diaryEntry, String userId) {
@@ -24,11 +23,11 @@ public class DiaryService {
                 diaryEntry.getStory(),
                 diaryEntry.getCreatedAtTimestamp(),
                 diaryEntry.getLastEditedAtTimestamp());
-        diaryEntryDao.save(item);
+        repository.save(item);
     }
 
     public List<DiaryEntry> fetchALlDiaryEntries(String userId) {
-        List<DiaryEntryItem> fetchedItems = diaryEntryDao.findByUserId(userId);
+        List<DiaryEntryItem> fetchedItems = repository.findByUserId(userId);
         return fetchedItems.stream().map(fetchedItem -> new DiaryEntry(fetchedItem.getTitle(),
                 fetchedItem.getStory(),
                 fetchedItem.getCreatedAtTimestamp(),
