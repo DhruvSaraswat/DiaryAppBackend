@@ -18,12 +18,12 @@ public class DiaryController {
     }
 
     @PostMapping
-    public void saveDiaryEntry(@RequestBody DiaryEntry diaryEntry) {
+    public void saveDiaryEntry(@RequestBody DiaryEntry diaryEntry, @RequestHeader("userId") String userId) {
         diaryService.saveDiaryEntry(diaryEntry);
     }
 
     @GetMapping
-    public List<DiaryEntry> fetchAllDiaryEntries() {
+    public List<DiaryEntry> fetchAllDiaryEntries(@RequestHeader("userId") String userId) {
         return diaryService.fetchALlDiaryEntries();
     }
 }
