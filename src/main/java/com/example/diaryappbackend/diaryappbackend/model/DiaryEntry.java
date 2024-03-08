@@ -8,10 +8,10 @@ public class DiaryEntry {
     private final long createdAtTimestamp;
     private final long lastEditedAtTimestamp;
 
-    public DiaryEntry(@JsonProperty("title") String title,
-                      @JsonProperty("story") String story,
-                      @JsonProperty("createdAtTimestamp") long createdAtTimestamp,
-                      @JsonProperty("lastEditedAtTimestamp") long lastEditedAtTimestamp) {
+    public DiaryEntry(@JsonProperty(value = "title", required = true) String title,
+                      @JsonProperty(value = "story", required = true) String story,
+                      @JsonProperty(value = "createdAtTimestamp", required = true) long createdAtTimestamp,
+                      @JsonProperty(value = "lastEditedAtTimestamp", required = true) long lastEditedAtTimestamp) {
         this.title = title;
         this.story = story;
         this.createdAtTimestamp = createdAtTimestamp;
