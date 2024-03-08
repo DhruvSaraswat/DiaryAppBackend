@@ -33,4 +33,12 @@ public class DiaryService {
                 fetchedItem.getCreatedAtTimestamp(),
                 fetchedItem.getLastEditedAtTimestamp())).toList();
     }
+
+    public DiaryEntry deleteDiaryEntry(String userId, long createdAt) {
+        DiaryEntryItem item = repository.deleteByUserIdAndCreatedAtTimestamp(userId, createdAt);
+        if (item == null) {
+            return null;
+        }
+        return new DiaryEntry(item.getTitle(), item.getStory(), item.getCreatedAtTimestamp(), item.getLastEditedAtTimestamp());
+    }
 }

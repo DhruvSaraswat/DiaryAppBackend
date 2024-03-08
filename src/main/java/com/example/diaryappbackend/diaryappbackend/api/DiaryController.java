@@ -1,8 +1,11 @@
 package com.example.diaryappbackend.diaryappbackend.api;
 
 import com.example.diaryappbackend.diaryappbackend.model.DiaryEntry;
+import com.example.diaryappbackend.diaryappbackend.model.error.NoRecordFoundException;
 import com.example.diaryappbackend.diaryappbackend.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,5 +28,14 @@ public class DiaryController {
     @GetMapping
     public List<DiaryEntry> fetchAllDiaryEntries(@RequestHeader("userId") String userId) {
         return diaryService.fetchALlDiaryEntries(userId);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteDiaryEntry(@RequestHeader("userId") String userId, @RequestParam(name="createdAt") long createdAt) {
+        DiaryEntry diaryEntry = diaryService.deleteDiaryEntry(userId, createdAt);
+        if (diaryEntry == null) {
+            throw new NoRecordFoundException();
+        }
+        return new ResponseEntity<>(diaryEntry, HttpStatus.OK);
     }
 }

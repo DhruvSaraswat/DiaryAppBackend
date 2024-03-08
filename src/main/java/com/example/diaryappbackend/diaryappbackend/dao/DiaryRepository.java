@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DiaryRepository extends MongoRepository<DiaryEntryItem, String> {
     List<DiaryEntryItem> findByUserId(String userId);
+
+    DiaryEntryItem deleteByUserIdAndCreatedAtTimestamp(String userId, long createdAtTimestamp);
 }
