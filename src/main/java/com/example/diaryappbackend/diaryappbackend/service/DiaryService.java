@@ -21,6 +21,7 @@ public class DiaryService {
         DiaryEntryItem item = new DiaryEntryItem(userId,
                 diaryEntry.getTitle(),
                 diaryEntry.getStory(),
+                diaryEntry.getDiaryTimestamp(),
                 diaryEntry.getCreatedAtTimestamp(),
                 diaryEntry.getLastEditedAtTimestamp());
         repository.save(item);
@@ -30,6 +31,7 @@ public class DiaryService {
         List<DiaryEntryItem> fetchedItems = repository.findByUserId(userId);
         return fetchedItems.stream().map(fetchedItem -> new DiaryEntry(fetchedItem.getTitle(),
                 fetchedItem.getStory(),
+                fetchedItem.getDiaryTimestamp(),
                 fetchedItem.getCreatedAtTimestamp(),
                 fetchedItem.getLastEditedAtTimestamp())).toList();
     }
@@ -39,6 +41,6 @@ public class DiaryService {
         if (item == null) {
             return null;
         }
-        return new DiaryEntry(item.getTitle(), item.getStory(), item.getCreatedAtTimestamp(), item.getLastEditedAtTimestamp());
+        return new DiaryEntry(item.getTitle(), item.getStory(), item.getDiaryTimestamp(), item.getCreatedAtTimestamp(), item.getLastEditedAtTimestamp());
     }
 }

@@ -10,13 +10,15 @@ public class DiaryEntryItem {
     private final String userId;
     private final String title;
     private final String story;
+    private final long diaryTimestamp;
     private final long createdAtTimestamp;
     private final long lastEditedAtTimestamp;
 
-    public DiaryEntryItem(String userId, String title, String story, long createdAtTimestamp, long lastEditedAtTimestamp) {
+    public DiaryEntryItem(String userId, String title, String story, long diaryTimestamp, long createdAtTimestamp, long lastEditedAtTimestamp) {
         this.userId = userId;
         this.title = title;
         this.story = story;
+        this.diaryTimestamp = diaryTimestamp;
         this.createdAtTimestamp = createdAtTimestamp;
         this.lastEditedAtTimestamp = lastEditedAtTimestamp;
     }
@@ -31,6 +33,10 @@ public class DiaryEntryItem {
 
     public String getStory() {
         return story;
+    }
+
+    public long getDiaryTimestamp() {
+        return diaryTimestamp;
     }
 
     public long getCreatedAtTimestamp() {
