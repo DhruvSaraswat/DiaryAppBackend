@@ -12,6 +12,7 @@ import org.bson.BsonBinary;
 import org.bson.BsonString;
 import org.bson.BsonValue;
 import org.bson.types.Binary;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -25,16 +26,19 @@ import java.util.stream.Collectors;
 @Service
 public class DiaryService {
 
-    public static final String DETERMINISTIC_ALGORITHM = "AEAD_AES_256_CBC_HMAC_SHA_512-Deterministic";
-
     private final MongoTemplate mongo;
     private final EncryptionConfig encryptionConfig;
     private final ClientEncryption clientEncryption;
+    private final String algorithm;
 
-    public DiaryService(MongoTemplate mongo, EncryptionConfig encryptionConfig, ClientEncryption clientEncryption) {
+    public DiaryService(MongoTemplate mongo,
+                        EncryptionConfig encryptionConfig,
+                        ClientEncryption clientEncryption,
+                        @Value("${encryption.algorithm}") String algorithm) {
         this.mongo = mongo;
         this.encryptionConfig = encryptionConfig;
         this.clientEncryption = clientEncryption;
+        this.algorithm = algorithm;
     }
 
     public Binary encrypt(BsonValue bsonValue, String algorithm) {
@@ -89,13 +93,13 @@ public class DiaryService {
         encryptedDiaryEntryItem.setLastEditedAtTimestamp(diaryEntry.getLastEditedAtTimestamp());
 
         if (diaryEntry.getTitle() != null) {
-            encryptedDiaryEntryItem.setTitle(encrypt(diaryEntry.getTitle(), DETERMINISTIC_ALGORITHM));
+            encryptedDiaryEntryItem.setTitle(encrypt(diaryEntry.getTitle(), algorithm));
         } else {
             encryptedDiaryEntryItem.setTitle(null);
         }
 
         if (diaryEntry.getStory() != null) {
-            encryptedDiaryEntryItem.setStory(encrypt(diaryEntry.getStory(), DETERMINISTIC_ALGORITHM));
+            encryptedDiaryEntryItem.setStory(encrypt(diaryEntry.getStory(), algorithm));
         } else {
             encryptedDiaryEntryItem.setStory(null);
         }
