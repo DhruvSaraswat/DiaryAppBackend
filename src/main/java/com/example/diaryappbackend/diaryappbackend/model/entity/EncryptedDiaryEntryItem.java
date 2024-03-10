@@ -1,25 +1,17 @@
 package com.example.diaryappbackend.diaryappbackend.model.entity;
 
+import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("DiaryEntries")
-public class DiaryEntryItem {
+public class EncryptedDiaryEntryItem {
 
     private String userId;
-    private String title;
-    private String story;
+    private Binary title;
+    private Binary story;
     private long diaryTimestamp;
     private long createdAtTimestamp;
     private long lastEditedAtTimestamp;
-
-    /**public DiaryEntryItem(String userId, String title, String story, long diaryTimestamp, long createdAtTimestamp, long lastEditedAtTimestamp) {
-        this.userId = userId;
-        this.title = title;
-        this.story = story;
-        this.diaryTimestamp = diaryTimestamp;
-        this.createdAtTimestamp = createdAtTimestamp;
-        this.lastEditedAtTimestamp = lastEditedAtTimestamp;
-    }*/
 
     public String getUserId() {
         return userId;
@@ -29,19 +21,19 @@ public class DiaryEntryItem {
         this.userId = userId;
     }
 
-    public String getTitle() {
+    public Binary getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(Binary title) {
         this.title = title;
     }
 
-    public String getStory() {
+    public Binary getStory() {
         return story;
     }
 
-    public void setStory(String story) {
+    public void setStory(Binary story) {
         this.story = story;
     }
 

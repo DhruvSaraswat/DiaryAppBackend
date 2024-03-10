@@ -1,6 +1,7 @@
 package com.example.diaryappbackend.diaryappbackend.api;
 
 import com.example.diaryappbackend.diaryappbackend.model.DiaryEntry;
+import com.example.diaryappbackend.diaryappbackend.model.entity.DiaryEntryItem;
 import com.example.diaryappbackend.diaryappbackend.model.error.NoRecordFoundException;
 import com.example.diaryappbackend.diaryappbackend.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +23,20 @@ public class DiaryController {
 
     @PostMapping
     public void saveDiaryEntry(@RequestBody DiaryEntry diaryEntry, @RequestHeader("userId") String userId) {
-        diaryService.saveDiaryEntry(diaryEntry, userId);
+        diaryService.save(diaryEntry, userId);
     }
 
     @GetMapping
-    public List<DiaryEntry> fetchAllDiaryEntries(@RequestHeader("userId") String userId) {
-        return diaryService.fetchALlDiaryEntries(userId);
+    public List<DiaryEntryItem> fetchAllDiaryEntries(@RequestHeader("userId") String userId) {
+        return diaryService.findAll(userId);
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteDiaryEntry(@RequestHeader("userId") String userId, @RequestParam(name="createdAt") long createdAt) {
-        DiaryEntry diaryEntry = diaryService.deleteDiaryEntry(userId, createdAt);
-        if (diaryEntry == null) {
+    public void deleteDiaryEntry(@RequestHeader("userId") String userId, @RequestParam(name="diaryTimestamp") long diaryTimestamp) {
+        diaryService.deleteDiaryEntry(userId, diaryTimestamp);
+        /*if (diaryEntry == null) {
             throw new NoRecordFoundException();
         }
-        return new ResponseEntity<>(diaryEntry, HttpStatus.OK);
+        return new ResponseEntity<>(diaryEntry, HttpStatus.OK);*/
     }
 }

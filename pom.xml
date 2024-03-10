@@ -39,6 +39,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-crypt</artifactId>
+			<version>1.8.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
