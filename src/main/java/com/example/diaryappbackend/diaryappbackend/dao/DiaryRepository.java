@@ -1,12 +1,15 @@
 package com.example.diaryappbackend.diaryappbackend.dao;
 
+import com.example.diaryappbackend.diaryappbackend.model.DiaryEntry;
 import com.example.diaryappbackend.diaryappbackend.model.entity.DiaryEntryItem;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface DiaryRepository extends MongoRepository<DiaryEntryItem, String> {
-    List<DiaryEntryItem> findByUserId(String userId);
+public interface DiaryRepository {
 
-    DiaryEntryItem deleteByUserIdAndCreatedAtTimestamp(String userId, long createdAtTimestamp);
+    void upsert(String userId, DiaryEntry diaryEntry);
+
+    List<DiaryEntryItem> fetchAll(String userId);
+
+    void delete(String userId, long diaryTimestamp);
 }
