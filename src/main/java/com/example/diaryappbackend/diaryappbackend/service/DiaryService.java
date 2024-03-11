@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DiaryService {
@@ -18,8 +19,16 @@ public class DiaryService {
         repository.upsert(userId, diaryEntry);
     }
 
-    public List<DiaryEntryItem> findAll(String userId) {
-        return repository.fetchAll(userId);
+    public List<DiaryEntry> findAll(String userId) {
+        List<DiaryEntryItem> diaryEntryItems = repository.fetchAll(userId);
+        return diaryEntryItems.stream()
+                .map(diaryEntryItem -> new DiaryEntry(diaryEntryItem.getTitle(),
+                        diaryEntryItem.getStory(),
+                        diaryEntryItem.getDiaryTimestamp(),
+                        diaryEntryItem.getCreatedAtTimestamp(),
+                        diaryEntryItem.getLastEditedAtTimestamp()))
+                .collect(Collectors.toList());
+
     }
 
     public void deleteDiaryEntry(String userId, long diaryTimestamp) {
